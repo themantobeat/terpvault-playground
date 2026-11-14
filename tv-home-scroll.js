@@ -92,6 +92,8 @@
           st.remove();
         });
         css += HOST + '{display:block;position:relative;width:100%;overflow:visible;container-type:inline-size;container-name:tvhs}';
+        /* Phones: the host column starts at the left edge but is about 87% of the screen wide. Widen it to the full screen, without moving it. */
+        css += '@media (max-width:800px){' + HOST + '{width:100vw;max-width:100vw}}';
         var style = document.createElement('style'); style.setAttribute('data-tv-playground', VERSION); style.textContent = css;
         document.head.appendChild(style);
 
