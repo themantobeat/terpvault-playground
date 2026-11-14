@@ -5,7 +5,7 @@
 (function () {
   var BASE = new URL('.', (document.currentScript && document.currentScript.src) || location.href).href;
   var HOME = BASE + 'home/';
-  var VERSION = '0.1.2';
+  var VERSION = '0.1.3';
   var HOST = '.tvhs';
   var started = false;
 
@@ -92,6 +92,8 @@
           st.remove();
         });
         css += HOST + '{display:block;position:relative;width:100%;overflow:visible;container-type:inline-size;container-name:tvhs}';
+        /* Phones: take the full browser width even when the host page's column is narrower. */
+        css += '@media (max-width:800px){' + HOST + '{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}}';
         var style = document.createElement('style'); style.setAttribute('data-tv-playground', VERSION); style.textContent = css;
         document.head.appendChild(style);
 
