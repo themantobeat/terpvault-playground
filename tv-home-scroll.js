@@ -76,6 +76,22 @@
       if (el.getAttribute('nav') !== 'on') el.classList.add('wix');   /* hide the copy's own menu when a host page has one */
       el.style.display = 'block';
       el.style.position = 'relative';
+      /* Phones: Wix wraps the element in containers that stay about 87% of the screen wide. Widen each of them to the screen. */
+      function widenWrappers() {
+        if (window.innerWidth > 800) return;
+        var n = el;
+        for (var i = 0; i < 12 && n && n !== document.body; i++) {
+          var w = n.getBoundingClientRect().width;
+          if (w > 0 && w < window.innerWidth - 2) {
+            n.style.setProperty('width', '100vw', 'important');
+            n.style.setProperty('max-width', '100vw', 'important');
+            n.style.setProperty('overflow', 'visible', 'important');
+          }
+          n = n.parentElement;
+        }
+      }
+      widenWrappers();
+      window.addEventListener('resize', widenWrappers);
       fetch(HOME + 'index.html?v=' + VERSION).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.text();
