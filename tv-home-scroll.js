@@ -5,7 +5,7 @@
 (function () {
   var BASE = new URL('.', (document.currentScript && document.currentScript.src) || location.href).href;
   var HOME = BASE + 'home/';
-  var VERSION = '0.1.1';
+  var VERSION = '0.1.2';
   var HOST = '.tvhs';
   var started = false;
 
@@ -42,7 +42,7 @@
     for (var i = 0; i < rules.length; i++) {
       var r = rules[i];
       if (r.type === 1) css += splitSelectors(r.selectorText).map(scopeSelector).join(',') + '{' + r.style.cssText + '}\n';
-      else if (r.type === 4) css += '@media ' + r.conditionText + '{' + scopeRules(r.cssRules) + '}\n';
+      else if (r.type === 4) css += (/max-width/.test(r.conditionText) ? '@container tvhs ' : '@media ') + r.conditionText + '{' + scopeRules(r.cssRules) + '}\n';
       else if (r.type === 12) css += '@supports ' + r.conditionText + '{' + scopeRules(r.cssRules) + '}\n';
       else css += r.cssText + '\n';
     }
@@ -91,7 +91,7 @@
           var sheet = new CSSStyleSheet(); sheet.replaceSync(st.textContent); css += scopeRules(sheet.cssRules);
           st.remove();
         });
-        css += HOST + '{display:block;position:relative;width:100%;overflow:visible}';
+        css += HOST + '{display:block;position:relative;width:100%;overflow:visible;container-type:inline-size;container-name:tvhs}';
         var style = document.createElement('style'); style.setAttribute('data-tv-playground', VERSION); style.textContent = css;
         document.head.appendChild(style);
 
