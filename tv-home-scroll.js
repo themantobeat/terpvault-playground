@@ -5,7 +5,7 @@
 (function () {
   var BASE = new URL('.', (document.currentScript && document.currentScript.src) || location.href).href;
   var HOME = BASE + 'home/';
-  var VERSION = '0.1.0';
+  var VERSION = '0.1.1';
   var HOST = '.tvhs';
   var started = false;
 
@@ -64,6 +64,14 @@
       if (started) return;
       started = true;
       var el = this;
+      /* Inside a frame (the Wix editor and its preview show custom elements in one) the page's vh-based
+         heights make the frame grow without end, so show a light placeholder there instead. */
+      var framed = false; try { framed = window.top !== window; } catch (e) { framed = true; }
+      if (framed && el.getAttribute('force') !== 'on') {
+        el.style.cssText = 'display:flex;align-items:center;justify-content:center;height:320px;background:#0b0b0b;color:#7cdcd2;font:16px system-ui,sans-serif;text-align:center;padding:16px;box-sizing:border-box';
+        el.textContent = 'TerpVault scroll animation (playground). It runs on the test site, not inside the editor.';
+        return;
+      }
       el.classList.add('tvhs');
       if (el.getAttribute('nav') !== 'on') el.classList.add('wix');   /* hide the copy's own menu when a host page has one */
       el.style.display = 'block';
