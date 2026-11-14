@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>TerpVault scroll animation playground</title>
+<style>
+  body { margin:0; background:#fff; font-family:system-ui, sans-serif; }
+  .host-head { background:#222; color:#eee; padding:14px 18px; font-size:14px; }
+  .host-foot { background:#eee; color:#333; padding:40px 18px; font-size:14px; }
+  #log { position:fixed; right:8px; top:8px; z-index:99999; width:min(340px,70vw); max-height:30vh; overflow:auto; background:#000c; color:#7cdcd2; font:11px ui-monospace, monospace; padding:6px 8px; border-radius:6px; white-space:pre-wrap; pointer-events:none; }
+</style>
+</head>
+<body>
+  <div class="host-head">Stand-in host page header (plays the part of the Wix page). The home page below is a Web Component, not an iframe.</div>
+  <tv-home-scroll></tv-home-scroll>
+  <div class="host-foot">Stand-in host page footer.</div>
+  <div id="log">events</div>
+  <script src="tv-home-scroll.js"></script>
+  <script>
+    var log = document.getElementById('log');
+    document.addEventListener('tv-viewer', function (e) { log.textContent = JSON.stringify(e.detail) + '\n' + log.textContent.slice(0, 1500); });
+  </script>
+</body>
+</html>

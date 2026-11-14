@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>TerpVault viewer playground</title>
+<style>
+  body { margin:0; background:#0b0b0b; color:#f3eee3; font-family:system-ui, sans-serif; }
+  header { padding:18px 16px 10px; text-align:center; }
+  h1 { color:#7cdcd2; margin:0; font-size:clamp(22px,5vw,32px); }
+  header p { color:#a9a59c; margin:6px 0 0; font-size:14px; }
+  #log { max-width:760px; margin:12px auto 40px; padding:0 16px; font:13px ui-monospace, monospace; color:#a9a59c; white-space:pre-wrap; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Viewer playground</h1>
+    <p>Experimental Web Component. No iframe. Not connected to the live site.</p>
+  </header>
+  <tv-viewer name="display"></tv-viewer>
+  <div id="log">Interaction events will list here.</div>
+  <script src="tv-viewer.js"></script>
+  <script>
+    var log = document.getElementById('log'), n = 0;
+    document.addEventListener('tv-viewer', function (e) {
+      if (!n++) log.textContent = '';
+      log.textContent = new Date().toLocaleTimeString() + '  ' + JSON.stringify(e.detail) + '\n' + log.textContent;
+    });
+  </script>
+</body>
+</html>
