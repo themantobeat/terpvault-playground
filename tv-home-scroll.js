@@ -5,7 +5,7 @@
 (function () {
   var BASE = new URL('.', (document.currentScript && document.currentScript.src) || location.href).href;
   var HOME = BASE + 'home/';
-  var VERSION = '0.1.2';
+  var VERSION = '0.2.0';
   var HOST = '.tvhs';
   var started = false;
 
@@ -134,7 +134,8 @@
             var t = s.text
               .replace(/document\.addEventListener\(\s*["']DOMContentLoaded["']\s*,/g, 'window.__tvReady(')
               .replace(/\},\s*\{\s*once\s*:\s*true\s*\}\s*\);(\s*async function loadBudVault)/, '});$1')
-              .replace(/script\.src\s*=\s*src\s*;/g, 'script.src = new URL(src, window.__tvBase).href;');
+              .replace(/script\.src\s*=\s*src\s*;/g, 'script.src = new URL(src, window.__tvBase).href;')
+              .replace(/fetchModels\("(m\d\.tvz\?v=\d+)"\)/g, 'fetchModels(window.__tvBase + "$1")');
             return addScript(null, t);
           });
         }, Promise.resolve());
