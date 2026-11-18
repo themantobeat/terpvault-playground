@@ -8,3 +8,7 @@ This repository is separate from production. Nothing here feeds the live storefr
 - `home/`, `assets/`: copied page files and models
 
 Pushing to `main` updates the GitHub Pages site within a few minutes.
+
+## home-worker/ (2026-11-18)
+
+Test build of the home page with the 3D normals step moved into a background worker. Output matches the current home/ build exactly (checked per mesh). Changed files: s2.js, s4.js, index.html (script versions only). Test traffic here is not in any analytics. Live site and themantobeat/terpvault-ar are unchanged.
